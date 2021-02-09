@@ -2,3 +2,7 @@
 .idea/B-PSU-400-PAR-4-1-malloc-antoine.desruet.iml
 .idea/modules.xml
 .idea/vcs.xml
+/cmake-build-debug/
+/CMakeLists.txt
+/.idea/
+/a.out

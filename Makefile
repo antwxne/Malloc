@@ -5,11 +5,11 @@
 ## makefile
 ##
 
-SRC	=	bootstrap.c
+SRC	=	
 
-OBJ	=	test.o
+OBJ	=	libmy_malloc.o
 
-NAME	=	libmalloc.so
+NAME	=	libmy_malloc.so
 
 CFLAGS	=	-Wall -Wextra
 
