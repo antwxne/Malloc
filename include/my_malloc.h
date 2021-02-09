@@ -16,4 +16,7 @@ typedef struct memory {
     struct memory *next;
 } memory_t;
 
+int nb_pages(size_t size);
+size_t adjust(size_t size);
+
 #endif /* !MY_MALLOC_H_ */
