@@ -5,8 +5,11 @@
 ## makefile
 ##
 
-SRC	=	src/pagination.c    \
-        src/my_malloc.c     \
+SRC	=	src/pagination.c    	\
+        src/my_malloc.c     	\
+		src/my_calloc.c 		\
+		src/my_realloc.c 		\
+		src/my_reallocarray.c 	\
 
 OBJ	=	$(SRC:.c=.o)
 

@@ -10,6 +10,7 @@
 
 #include <stdbool.h>
 #include <unistd.h>
+#include <string.h>
 
 typedef struct memory {
     size_t size;
@@ -18,5 +19,7 @@ typedef struct memory {
 
 int nb_pages(size_t size);
 size_t adjust(size_t size);
+
+void *malloc(size_t size);
 
 #endif /* !MY_MALLOC_H_ */
