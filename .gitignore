@@ -6,3 +6,5 @@
 /CMakeLists.txt
 /.idea/
 /a.out
+print_adr.c
+manual_alloc.c

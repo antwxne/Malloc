@@ -5,23 +5,23 @@
 ## makefile
 ##
 
-SRC	=	
+SRC	=	src/pagination.c    \
+        src/my_malloc.c     \
 
-OBJ	=	libmy_malloc.o
+OBJ	=	$(SRC:.c=.o)
 
 NAME	=	libmy_malloc.so
 
-CFLAGS	=	-Wall -Wextra
+CFLAGS	=	-Wall -Wextra  -fPIC
 
-CPPFLAGS	=
+CPPFLAGS	=	-I./include
 
 CC	=	gcc
 
 all: $(NAME)
 
-$(NAME):
-	$(CC) -c $(SRC) -fPIC -o $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) -shared
+$(NAME):	$(OBJ)
+	$(CC) -shared -fPIC -o $(NAME) $(OBJ)
 
 clean:
 	$(RM) $(OBJ)
