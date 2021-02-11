@@ -28,8 +28,10 @@ void *best_fit(memory_t **list, size_t size)
 
 
     for (memory_t *tmp = *list; tmp != NULL; tmp = tmp->next)
-        if (tmp->size > min && tmp->free == FREE && tmp->size >= size)
+        if (tmp->size > min && tmp->free == FREE && tmp->size >= size) {
             dest = tmp;
+            dest->free = NOT_FREE;
+        }
     return dest;
 }
 
@@ -61,7 +63,15 @@ void *add_block(memory_t **list, size_t size)
     *(tmp->next) = (memory_t){END, tmp->size - adjusted_size + 1
                               - sizeof(memory_t), NULL};
     tmp->size = adjusted_size;
+    tmp->free = NOT_FREE;
     return tmp;
+}
+
+static void fils_de_pute(memory_t *list)
+{
+    for (memory_t *tmp = list; tmp != NULL; tmp = tmp->next)
+        if (tmp->free != END && tmp->free != FREE && tmp->free != NOT_FREE)
+            abort();
 }
 
 void *malloc(size_t size)
@@ -72,10 +82,10 @@ void *malloc(size_t size)
     if (list == NULL)
         if (!init_list(&list, size))
             return NULL;
+    fils_de_pute(list);
     dest = best_fit(&list, size);
     if (dest == NULL)
         dest = add_block(&list, size);
-    dest->free = NOT_FREE;
     stock_list(list);
-    return dest + sizeof(memory_t);
+    return (void *)dest + sizeof(memory_t);
 }

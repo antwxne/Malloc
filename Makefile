@@ -11,6 +11,7 @@ SRC	=	src/pagination.c    	\
 		src/my_realloc.c 		\
 		src/my_reallocarray.c 	\
 		src/singleton.c 		\
+		src/my_free.c 			\
 
 OBJ	=	$(SRC:.c=.o)
 

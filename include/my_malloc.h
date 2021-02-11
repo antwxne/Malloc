@@ -11,6 +11,10 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
 
 typedef struct memory {
     char free;
@@ -18,7 +22,7 @@ typedef struct memory {
     struct memory *next;
 } memory_t;
 
-enum plouf {
+enum magic {
     END = 21,
     FREE = 42,
     NOT_FREE = 84
@@ -28,6 +32,8 @@ int nb_pages(size_t size);
 size_t adjust(size_t size);
 
 memory_t *stock_list(memory_t *list);
+
+void my_free(void *ptr);
 
 void *malloc(size_t size);
 
