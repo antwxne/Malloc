@@ -21,7 +21,7 @@ static bool init_list(memory_t **list, size_t size)
     return true;
 }
 
-void *best_fit(memory_t **list, size_t size)
+static void *best_fit(memory_t **list, size_t size)
 {
     size_t min = 0;
     memory_t *dest = NULL;
@@ -33,38 +33,6 @@ void *best_fit(memory_t **list, size_t size)
             dest->free = NOT_FREE;
         }
     return dest;
-}
-
-bool adjust_heap(memory_t **end, size_t size)
-{
-    int pages = nb_pages(size);
-
-    if (sbrk(pages) == (void *) -1)
-        return false;
-    (*end)->next = NULL;
-    (*end)->free = END;
-    (*end)->size += (size_t)pages;
-    return true;
-
-    return true;
-}
-
-void *add_block(memory_t **list, size_t size)
-{
-    memory_t *tmp = *list;
-    size_t adjusted_size = adjust(size);
-
-    for (; tmp->free != END; tmp = tmp->next);
-    if (tmp->size < adjusted_size)
-        if(!adjust_heap(&tmp, size))
-            return NULL;
-    tmp->next = (memory_t *)((void *)tmp + sizeof(memory_t)
-                             + adjusted_size + 1);
-    *(tmp->next) = (memory_t){END, tmp->size - adjusted_size + 1
-                              - sizeof(memory_t), NULL};
-    tmp->size = adjusted_size;
-    tmp->free = NOT_FREE;
-    return tmp;
 }
 
 static void fils_de_pute(memory_t *list)

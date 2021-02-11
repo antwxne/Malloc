@@ -30,6 +30,7 @@ enum magic {
 
 int nb_pages(size_t size);
 size_t adjust(size_t size);
+void *add_block(memory_t **list, size_t size);
 
 memory_t *stock_list(memory_t *list);
 

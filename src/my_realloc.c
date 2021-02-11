@@ -2,9 +2,14 @@
 
 void *realloc(void *ptr, size_t size)
 {
-    void *dest = malloc(size);
+    void *dest;
+    memory_t *tmp = (void *) ptr - sizeof(memory_t);
 
-    dest = memcpy(dest, ptr, size);
-    free(ptr);
-    return dest;
+    if (tmp->size < size) {
+        dest = malloc(size);
+        dest = memcpy(dest, ptr, size);
+        free(ptr);
+        return dest;
+    } else
+        return ptr;
 }
