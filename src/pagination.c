@@ -9,11 +9,12 @@
 
 size_t adjust(size_t size)
 {
-    size_t dest = 0;
-    size_t i = 4;
+    size_t dest = 1 << 3;
+    size_t tmp = dest;
+    size_t i = 1;
 
     while (size > dest) {
-        dest = 1 << i;
+        dest = tmp * i;
         i++;
     }
     return dest;
@@ -41,11 +42,13 @@ void *add_block(memory_t **list, size_t size)
 
     for (; tmp->free != END; tmp = tmp->next);
     if (tmp->size <= adjusted_size)
-        if(!adjust_heap(&tmp, adjusted_size))
+        if(!adjust_heap(&tmp, adjusted_size)) {
+            //write(1, "non\n", 4);
             return NULL;
+        }
     tmp->next = (memory_t *)((void *)tmp + sizeof(memory_t)
-                             + adjusted_size + 1);
-    *(tmp->next) = (memory_t){END, tmp->size - adjusted_size + 1
+                             + adjusted_size);
+    *(tmp->next) = (memory_t){END, tmp->size - adjusted_size
                               - sizeof(memory_t), NULL};
     tmp->size = adjusted_size;
     tmp->free = NOT_FREE;
