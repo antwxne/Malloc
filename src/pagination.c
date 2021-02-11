@@ -40,8 +40,8 @@ void *add_block(memory_t **list, size_t size)
     size_t adjusted_size = adjust(size);
 
     for (; tmp->free != END; tmp = tmp->next);
-    if (tmp->size < adjusted_size)
-        if(!adjust_heap(&tmp, size))
+    if (tmp->size <= adjusted_size)
+        if(!adjust_heap(&tmp, adjusted_size))
             return NULL;
     tmp->next = (memory_t *)((void *)tmp + sizeof(memory_t)
                              + adjusted_size + 1);
