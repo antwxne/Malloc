@@ -23,6 +23,6 @@ int nb_pages(size_t size)
 {
     int page_size = getpagesize() * 2;
 
-    for (int page_ref = page_size; page_size < size; page_size += page_ref);
+    for (int page_ref = page_size; page_size < (int)size; page_size += page_ref);
     return page_size;
 }
