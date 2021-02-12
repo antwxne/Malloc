@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2021
+** B-PSU-400-PAR-4-1-malloc-antoine.desruet
+** File description:
+** my_realloc
+*/
+
 #include "my_malloc.h"
 
 void *realloc(void *ptr, size_t size)

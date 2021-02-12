@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2021
+** B-PSU-400-PAR-4-1-malloc-antoine.desruet
+** File description:
+** my_free
+*/
+
 #include "my_malloc.h"
 
 static void search_node(memory_t **list, const memory_t *node)
