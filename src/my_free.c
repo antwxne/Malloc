@@ -7,14 +7,14 @@ static void search_node(memory_t **list, const memory_t *node)
             tmp->free = FREE;
             return;
         }
-    fprintf(stderr, "Free: invalid pointer.\n");
+    return;
+    fprintf(stderr, "free(): invalid pointer.\n");
     abort();
 }
 
 static void merge_block(memory_t **list)
 {
     memory_t *tmp = *list;
-    int merged = 0;
 
 
     if (tmp->next == NULL)
@@ -29,7 +29,6 @@ static void merge_block(memory_t **list)
             && tmp->next->free == FREE) {
             tmp->size += tmp->next->size;
             tmp->free = tmp->next->free;
-            merged += 1;
             tmp->next = tmp->next->next;
         }
     }
@@ -41,7 +40,8 @@ void free(void *ptr)
     memory_t *list = stock_list(NULL);
 
     if (node == NULL || node->free != NOT_FREE) {
-        fprintf(stderr, "Free: invalid pointer acsac.\n");
+        return;
+        fprintf(stderr, "free(): invalid pointer.\n");
         abort();
     }
     search_node(&list, node);

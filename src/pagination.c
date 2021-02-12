@@ -13,7 +13,7 @@ size_t adjust(size_t size)
     size_t tmp = dest;
     size_t i = 1;
 
-    while (size > dest) {
+    while (size + sizeof(memory_t) + 1 > dest) {
         dest = tmp * i;
         i++;
     }
@@ -30,8 +30,6 @@ static bool adjust_heap(memory_t **end, size_t size)
     (*end)->free = END;
     (*end)->size += (size_t)pages;
     return true;
-
-    return true;
 }
 
 
@@ -46,8 +44,7 @@ void *add_block(memory_t **list, size_t size)
             //write(1, "non\n", 4);
             return NULL;
         }
-    tmp->next = (memory_t *)((void *)tmp + sizeof(memory_t)
-                             + adjusted_size);
+    tmp->next = (memory_t *)((void *)tmp + adjusted_size);
     *(tmp->next) = (memory_t){END, tmp->size - adjusted_size
                               - sizeof(memory_t), NULL};
     tmp->size = adjusted_size;

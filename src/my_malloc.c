@@ -35,7 +35,7 @@ static void *best_fit(memory_t **list, size_t size)
     return dest;
 }
 
-static void fils_de_pute(memory_t *list)
+static void check_if_user_has_rewrite(memory_t *list)
 {
     for (memory_t *tmp = list; tmp != NULL; tmp = tmp->next)
         if (tmp->free != END && tmp->free != FREE && tmp->free != NOT_FREE)
@@ -48,9 +48,11 @@ void *malloc(size_t size)
     memory_t *dest = NULL;
 
     if (list == NULL)
-        if (!init_list(&list, size))
+        if (!init_list(&list, size)){
+            write(1, "caca\n", 5);
             return NULL;
-    fils_de_pute(list);
+        }
+    check_if_user_has_rewrite(list);
     dest = best_fit(&list, size);
     if (dest == NULL)
         dest = add_block(&list, size);
