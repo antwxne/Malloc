@@ -9,8 +9,10 @@
 
 void *calloc(size_t nmemb, size_t size)
 {
-    void *ptr = malloc(nmemb * size);
+    void *ptr = malloc((nmemb + 1) * size);
 
-    ptr = memset(ptr, 0, nmemb * size);
+    if (ptr == NULL)
+        return NULL;
+    ptr = memset(ptr, 0, (nmemb + 1) * size);
     return ptr;
 }

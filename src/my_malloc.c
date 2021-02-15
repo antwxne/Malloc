@@ -31,6 +31,7 @@ static void *best_fit(memory_t **list, size_t size)
         if (tmp->size > min && tmp->free == FREE && tmp->size >= size) {
             dest = tmp;
             dest->free = NOT_FREE;
+            min = dest->size;
         }
     return dest;
 }
@@ -47,15 +48,18 @@ void *malloc(size_t size)
     memory_t *list = stock_list(NULL);
     memory_t *dest = NULL;
 
+    if (size == 0)
+        return NULL;
     if (list == NULL)
-        if (!init_list(&list, size)){
-            write(1, "caca\n", 5);
+        if (!init_list(&list, size))
             return NULL;
-        }
     check_if_user_has_rewrite(list);
     dest = best_fit(&list, size);
-    if (dest == NULL)
+    if (dest == NULL) {
         dest = add_block(&list, size);
+        if (dest == NULL)
+            return NULL;
+    }
     stock_list(list);
     return (void *)dest + sizeof(memory_t);
 }

@@ -49,4 +49,4 @@ tests_run:
 	$(CC) -o $(NAME) $(SRC) $(LDFLAGS) $(CPPFLAGS)
 	./$(NAME)
 
-.PHONY: all fclean re clean $(NAME) debug
+.PHONY: all fclean re clean $(NAME) debug tests_run
