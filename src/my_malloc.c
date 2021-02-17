@@ -7,7 +7,7 @@
 
 #include "my_malloc.h"
 
-static bool init_list(memory_t **list, size_t size)
+bool init_list(memory_t **list, size_t size)
 {
     int pages = nb_pages(size);
 

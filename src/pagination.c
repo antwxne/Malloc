@@ -35,7 +35,10 @@ void *add_block(memory_t **list, size_t size)
     memory_t *tmp = *list;
     size_t adjusted_size = adjust(size);
 
-    for (; tmp->free != END; tmp = tmp->next);
+    for (;tmp && tmp->free != END; tmp = tmp->next);
+    if (tmp == NULL)
+        if (init_list(&tmp, size) == false)
+            return NULL;
     if (tmp->size <= adjusted_size)
         if (!adjust_heap(&tmp))
             return NULL;

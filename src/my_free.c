@@ -27,8 +27,7 @@ void free(void *ptr)
         return;
     node = (void *)ptr - (sizeof(memory_t));
     if (node->free != NOT_FREE) {
-        fprintf(stderr, "free(): double free.\n");
-        abort();
+        return;
     }
     search_node(&list, node);
     stock_list(list);
