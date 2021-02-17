@@ -27,6 +27,8 @@ void *realloc(void *ptr, size_t size)
     if (size == 0)
         return NULL;
     tmp = (void *) ptr - sizeof(memory_t);
+    if (tmp->size - sizeof(memory_t) >= size)
+        return ptr;
     if (check_merge(&tmp, size)) {
         dest = malloc(size);
         dest = memcpy(dest, ptr, size);

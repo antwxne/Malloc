@@ -21,25 +21,21 @@ static bool init_list(memory_t **list, size_t size)
     return true;
 }
 
-/* static void merge(memory_t **list, size_t size) */
-/* { */
-/*     for (memory_t *tmp = *list; tmp != NULL; tmp = tmp->next) { */
-
-/*     } */
-/* } */
-
 static void *best_fit(memory_t **list, size_t size)
 {
     size_t min = 0;
     memory_t *dest = NULL;
 
 
-    for (memory_t *tmp = *list; tmp != NULL; tmp = tmp->next)
-        if (tmp->size > min && tmp->free == FREE && tmp->size >= size) {
+    for (memory_t *tmp = *list; tmp->next != NULL; tmp = tmp->next)
+        if (tmp->size > min && tmp->free == FREE
+            && tmp->size > size && tmp->next->free == FREE
+            && tmp->size < tmp->next->size) {
             dest = tmp;
-            dest->free = NOT_FREE;
             min = dest->size;
         }
+    if (dest != NULL)
+        dest->free = NOT_FREE;
     return dest;
 }
 
