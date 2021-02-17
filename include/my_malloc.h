@@ -34,7 +34,13 @@ void *add_block(memory_t **list, size_t size);
 
 memory_t *stock_list(memory_t *list);
 
-void my_free(void *ptr);
+void free(void *ptr);
+
+void *realloc(void *ptr, size_t size);
+
+void *my_calloc(size_t nmemb, size_t size);
+
+void *reallocarray(void *ptr, size_t nmemb, size_t size)
 
 void *malloc(size_t size);
 
