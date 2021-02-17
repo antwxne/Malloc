@@ -9,9 +9,15 @@
 
 void *reallocarray(void *ptr, size_t nmemb, size_t size)
 {
-    void *dest = malloc(nmemb * size);
+    void *dest;
+    size_t b;
 
-    dest = memcpy(dest, ptr, nmemb * size);
-    free(ptr);
+    if (__builtin_mul_overflow(nmemb, size, &b))
+        return NULL;
+    dest  = malloc(b);
+    if (dest != NULL) {
+        dest = memcpy(dest, ptr, b);
+        free(ptr);
+    }
     return dest;
 }

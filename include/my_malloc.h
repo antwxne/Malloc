@@ -16,16 +16,16 @@
 
 
 
-typedef struct memory {
+typedef struct __attribute__((__packed__, aligned(2))) memory {
     char free;
     size_t size;
     struct memory *next;
 } memory_t;
 
 enum magic {
-    END = 21,
-    FREE = 42,
-    NOT_FREE = 84
+    END = -21,
+    FREE = -42,
+    NOT_FREE = -84
 };
 
 int nb_pages(size_t size);

@@ -21,6 +21,13 @@ static bool init_list(memory_t **list, size_t size)
     return true;
 }
 
+/* static void merge(memory_t **list, size_t size) */
+/* { */
+/*     for (memory_t *tmp = *list; tmp != NULL; tmp = tmp->next) { */
+
+/*     } */
+/* } */
+
 static void *best_fit(memory_t **list, size_t size)
 {
     size_t min = 0;
@@ -50,6 +57,7 @@ void *malloc(size_t size)
 
     if (size == 0)
         return NULL;
+    size = adjust(size);
     if (list == NULL)
         if (!init_list(&list, size))
             return NULL;

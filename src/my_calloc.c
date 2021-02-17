@@ -9,10 +9,13 @@
 
 void *calloc(size_t nmemb, size_t size)
 {
-    void *ptr = malloc((nmemb + 1) * size);
+    void *ptr = NULL;
+    size_t b;
 
-    if (ptr == NULL)
+    if (__builtin_mul_overflow(nmemb, size, &b))
         return NULL;
-    ptr = memset(ptr, 0, (nmemb + 1) * size);
+    ptr = malloc(b);
+    if (ptr != NULL)
+        ptr = memset(ptr, 0, b);
     return ptr;
 }
