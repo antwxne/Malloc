@@ -14,7 +14,7 @@ static bool check_merge(memory_t **ptr, size_t size)
     if ((*ptr)->size < size && (*ptr)->size + (*ptr)->next->size
         - sizeof(memory_t)> size) {
         (*ptr)->size += (*ptr)->next->size;
-        (*ptr)->next =(*ptr)->next->next;
+        (*ptr)->next = (*ptr)->next->next;
     }
     return true;
 }
@@ -24,8 +24,12 @@ void *realloc(void *ptr, size_t size)
     void *dest;
     memory_t *tmp;
 
-    if (size == 0)
+    if (ptr == NULL)
+        return malloc(size);
+    if (size == 0) {
+        free(ptr);
         return NULL;
+    }
     tmp = (void *) ptr - sizeof(memory_t);
     if (tmp->size - sizeof(memory_t) >= size)
         return ptr;

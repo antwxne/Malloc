@@ -20,15 +20,13 @@ size_t adjust(size_t size)
     return dest;
 }
 
-static bool adjust_heap(memory_t **end, size_t size)
+static bool adjust_heap(memory_t **end)
 {
-    int pages = nb_pages(size);
-
-    if (sbrk(pages) == (void *) -1)
+    if (sbrk(getpagesize() * 24) == (void *) -1)
         return false;
     (*end)->next = NULL;
     (*end)->free = END;
-    (*end)->size += (size_t)pages;
+    (*end)->size += (size_t)getpagesize() * 24;
     return true;
 }
 
@@ -39,7 +37,7 @@ void *add_block(memory_t **list, size_t size)
 
     for (; tmp->free != END; tmp = tmp->next);
     if (tmp->size <= adjusted_size)
-        if (!adjust_heap(&tmp, adjusted_size))
+        if (!adjust_heap(&tmp))
             return NULL;
     tmp->next = (memory_t *)((void *)tmp + adjusted_size);
     *(tmp->next) = (memory_t){END, tmp->size - adjusted_size

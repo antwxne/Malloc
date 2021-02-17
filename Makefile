@@ -36,7 +36,7 @@ fclean:	clean
 
 re:	fclean all $(NAME) debug
 
-debug:	CPPFLAGS += -g3
+debug:	CPPFLAGS += -g3 -ggdb
 debug:	re
 
 tests_run: SRC += tests/tests.cpp
