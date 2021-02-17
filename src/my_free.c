@@ -46,7 +46,11 @@ void free(void *ptr)
     memory_t *node = (void *)ptr - (sizeof(memory_t));
     memory_t *list = stock_list(NULL);
 
-    if (node == NULL || node->free != NOT_FREE) {
+    if (node == NULL) {
+        fprintf(stderr, "free(): invalid pointer.\n");
+        abort();
+    }
+    if (node->free != NOT_FREE) {
         fprintf(stderr, "free(): invalid pointer.\n");
         abort();
     }

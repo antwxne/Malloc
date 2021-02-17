@@ -7,17 +7,17 @@
 
 #include "my_malloc.h"
 
-/* static void search_node(memory_t **list, const memory_t *node) */
-/* { */
-/*     for (memory_t *tmp = *list; tmp != NULL; tmp = tmp->next) */
-/*         if (tmp == node) { */
-/*             tmp->free = FREE; */
-/*             return; */
-/*         } */
-/*     return; */
-/*     fprintf(stderr, "free(): invalid pointer.\n"); */
-/*     abort(); */
-/* } */
+static bool check_merge(memory_t **ptr, size_t size)
+{
+    if ((*ptr)->next == NULL)
+        return false;
+    if ((*ptr)->size < size && (*ptr)->size + (*ptr)->next->size
+        - sizeof(memory_t)> size) {
+        (*ptr)->size += (*ptr)->next->size;
+        (*ptr)->next =(*ptr)->next->next;
+    }
+    return true;
+}
 
 void *realloc(void *ptr, size_t size)
 {
@@ -27,11 +27,11 @@ void *realloc(void *ptr, size_t size)
     if (size == 0)
         return NULL;
     tmp = (void *) ptr - sizeof(memory_t);
-    if (tmp->size < size) {
+    if (check_merge(&tmp, size)) {
         dest = malloc(size);
         dest = memcpy(dest, ptr, size);
         free(ptr);
         return dest;
     } else
-        return ptr;
+        return (void *)tmp + sizeof(memory_t);
 }

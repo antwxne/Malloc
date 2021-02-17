@@ -7,7 +7,7 @@
 
 #include "my_malloc.h"
 
-void *calloc(size_t nmemb, size_t size)
+void *my_calloc(size_t nmemb, size_t size)
 {
     void *ptr = NULL;
     size_t b;
@@ -15,7 +15,9 @@ void *calloc(size_t nmemb, size_t size)
     if (__builtin_mul_overflow(nmemb, size, &b))
         return NULL;
     ptr = malloc(b);
-    if (ptr != NULL)
-        ptr = memset(ptr, 0, b);
+    b = adjust(b) - sizeof(memory_t);
+    if (ptr == NULL)
+        return NULL;
+    ptr = memset(ptr, 0, b);
     return ptr;
 }
