@@ -29,10 +29,10 @@ $(NAME):	$(OBJ)
 	$(CC) -shared -fPIC -o $(NAME) $(OBJ)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) *.gcda *.gcno unit_tests
 
 fclean:	clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) unit_tests
 
 re:	fclean all $(NAME) debug
 

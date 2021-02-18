@@ -9,3 +9,8 @@
 print_adr.c
 manual_alloc.c
 *.o
+.vscode/settings.json
+*.gcda
+*.gcno
+unit_tests
+libmy_malloc.so
