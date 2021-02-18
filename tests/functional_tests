@@ -4,7 +4,7 @@ make re
 
 function test()
 {
-    LD_PRELOAD=./libmy_malloc.so $1 > /dev/null
+    LD_PRELOAD=./libmy_malloc.so $1 &> /dev/null
 
     if [[ $? == 0 ]]; then
         echo -e "Test: [\e[1;95m$1\e[0m] == \e[1;32mOK\e[0m"
