@@ -14,7 +14,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+#ifdef TU
+#define free my_free
+#define realloc my_realloc
+#define malloc my_malloc
+#define reallocarray my_reallocarray
+#define calloc my_calloc
+#endif
 
 typedef struct __attribute__((__packed__, aligned(2))) memory {
     char free;

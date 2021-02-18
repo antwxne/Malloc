@@ -39,9 +39,9 @@ re:	fclean all $(NAME) debug
 debug:	CPPFLAGS += -g3 -ggdb
 debug:	re
 
-tests_run: SRC += tests/tests.cpp
+tests_run: SRC += tests/tests.c
 tests_run: LDFLAGS += -lcriterion --coverage
-tests_run: CPPFLAGS += -iquote./tests/
+tests_run: CPPFLAGS += -iquote./tests/ -DTU
 tests_run: CFLAGS := $(filter-out -Werror, $(CFLAGS))
 tests_run: SRC := $(filter-out main.c, $(SRC))
 tests_run: NAME := unit_tests

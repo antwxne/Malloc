@@ -7,7 +7,7 @@
 
 #include "my_malloc.h"
 
-void *my_calloc(size_t nmemb, size_t size)
+void *calloc(size_t nmemb, size_t size)
 {
     void *ptr = NULL;
     size_t b;
