@@ -14,8 +14,6 @@ static void search_node(memory_t **list, const memory_t *node)
             tmp->free = FREE;
             return;
         }
-    fprintf(stderr, "free(): invalid pointer.\n");
-    abort();
 }
 
 void free(void *ptr)

@@ -35,6 +35,8 @@ void *realloc(void *ptr, size_t size)
         return ptr;
     if (check_merge(&tmp, size)) {
         dest = malloc(size);
+        if (dest == NULL)
+            return NULL;
         dest = memcpy(dest, ptr, size);
         free(ptr);
         return dest;
