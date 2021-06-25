@@ -34,7 +34,7 @@ clean:
 fclean:	clean
 	$(RM) $(NAME) unit_tests
 
-re:	fclean all $(NAME) debug
+re:	fclean all $(NAME)
 
 debug:	CPPFLAGS += -g3 -ggdb
 debug:	re
