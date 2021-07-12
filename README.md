@@ -1,4 +1,4 @@
-# Malloc
+# Malloc ![c](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
 
 > Using only brk/sbrk and your amazing mind, rewrite the 5 following C library functions: malloc, calloc,
 realloc, reallocarray and free.
