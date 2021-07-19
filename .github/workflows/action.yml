@@ -14,13 +14,31 @@ jobs:
     name: compil
     steps:
       - uses: actions/checkout@v2
-      - run: make fclean
-      - run: make
+      - run: |
+          mkdir -p artifacts
+          make fclean
+          make > artifacts/build_log.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build log
+          path: artifacts/build_log.txt
   Tests:
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker:devel
     name: tests
     steps:
       - uses: actions/checkout@v2
-      - run: make fclean
-      - run: make tests_run
+      - run: |
+          mkdir -p artifacts
+          make fclean
+          make tests_run
+          ./unit_tests &> artifacts/tests_results.txt
+          gcovr -e tests/ &> artifacts/coverage_lines.txt
+          gcovr -e tests/ -b &> artifacts/coverage_branches.txt 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Tests results
+          path: |
+            artifacts/tests_results.txt
+            artifacts/coverage_lines.txt
+            artifacts/coverage_branches.txt
