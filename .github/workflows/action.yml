@@ -32,7 +32,7 @@ jobs:
           mkdir -p artifacts
           make fclean
           make tests_run
-          ./unit_tests &> artifacts/tests_results.txt
+          ./unit_tests --ascii &> artifacts/tests_results.txt
           gcovr -e tests/ &> artifacts/coverage_lines.txt
           gcovr -e tests/ -b &> artifacts/coverage_branches.txt 
       - uses: actions/upload-artifact@v2
